@@ -12,4 +12,10 @@ router.get(
   itemController.getItemByUserId
 );
 
+router.post(
+  "/sites/update",
+  userController.requireSignIn,
+  itemController.editItem
+);
+
 module.exports = router;

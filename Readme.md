@@ -61,6 +61,7 @@ Please also take note of your ``id`` at the signup(User) So It will be use in la
 | POST   | /user/signout?userId={userId} | Authorized token<br /> userId as query parameter             | message                       | To signout                                             |
 | GET    | /sites/list?userId={userId}   | Authorized token<br />userId as query parameter              | Website,username and password | To get all the saved Password from DB (<b>#3</b>)      |
 | POST   | /sites?userId={userId}        | Authorized token<br />userId as query parameter              | statuscode and message        | To store the username and password into DB (<b>#4</b>) |
+| POST   | /sites/update?userId={userId} | Authorized token<br />userId as query parameter<br />body:{<br />website:string<br />username:string<br />password:string} | statusCode and message        | To update the already saved password into DB.          |
 
 **In postman select Authorization type as Bearer token and enter your token getting after login*
 
@@ -84,10 +85,11 @@ Please also take note of your ``id`` at the signup(User) So It will be use in la
 | S.No. | StatusCode | Meaning                            | Type                  |
 | ----- | ---------- | ---------------------------------- | --------------------- |
 | 1.    | 200        | The request has succeeded.         | Ok                    |
-| 2.    | 400        | Invalid Syntax                     | Bad Request           |
-| 3.    | 401        | Token is missing or wrong user Id. | Unauthorized          |
-| 4.    | 403        | Don't have access for this route.  | Forbidden             |
-| 5.    | 404        | Sever couldn't found the data.     | Not Found             |
-| 6.    | 409        | consistency will not maintain      | Conflict              |
-| 7.    | 500        | Error in server due to logic       | Internal Server Error |
+| 2.    | 302        | The data exists in DB.             | Found                 |
+| 3.    | 400        | Invalid Syntax                     | Bad Request           |
+| 4.    | 401        | Token is missing or wrong user Id. | Unauthorized          |
+| 5.    | 403        | Don't have access for this route.  | Forbidden             |
+| 6.    | 404        | Sever couldn't found the data.     | Not Found             |
+| 7.    | 409        | consistency will not maintain      | Conflict              |
+| 8.    | 500        | Error in server due to logic       | Internal Server Error |
 
