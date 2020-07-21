@@ -118,7 +118,7 @@ const editItem = (req, res) => {
           message: "This website password does not exists!",
         });
       }
-      const encryptedString = cryptr.encrypt(itemRes.password);
+      const encryptedString = cryptr.encrypt(itemUp.password);
       itemRes.password = encryptedString;
 
       itemRes

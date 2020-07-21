@@ -125,7 +125,7 @@ const signout = (req, res) => {
       error: "User is not authorized",
     });
   }
-  User.findOne({ where: { id: req.userProfile.id } })
+  User.findOne({ where: { id: userId } })
     .then((user) => {
       user.isActive = false;
       user

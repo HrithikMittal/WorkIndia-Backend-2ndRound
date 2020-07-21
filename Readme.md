@@ -10,6 +10,19 @@ College: Vellore Institute of technology
 
 for the 2nd round of WorkIndia company
 
+# Test Data:
+
+As I host everything on cloud So If you want to test it directly without installing the code you can test with the following credentials:
+
+```json
+{
+    "username":"adhikashmittal@gmail.com",
+    "password":"password@123"
+}
+```
+
+do the login and Please <b>Note down your token as well as your id(user Id) for future APIs</b>.
+
 # Description:
 
 I deploy the app on the heroku Platform and the MySQL is hosted on AWS server. If you want to change it please change it in environment file. Also the link for heroku app: [https://workindia.herokuapp.com/](https://workindia.herokuapp.com/)
