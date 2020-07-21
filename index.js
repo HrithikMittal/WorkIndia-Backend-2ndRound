@@ -11,8 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+var home = require("./home.json");
 app.get("/", (req, res) => {
-  res.json({ message: "Hello World" });
+  res.send(home);
 });
 
 var userRoute = require("./routes/user");
