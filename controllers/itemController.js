@@ -14,7 +14,7 @@ const addItem = (req, res) => {
   const authorized = req.auth && req.auth.id == userId;
   if (!authorized) {
     return res.status(403).json({
-      statusCode: 400,
+      statusCode: 401,
       error: "User is not authorized",
     });
   }
@@ -48,7 +48,7 @@ const addItem = (req, res) => {
     .catch((err) => {
       console.log("error is ", err);
       return res.json({
-        statusCode: 400,
+        statusCode: 500,
         error: "Error in adding new item to DB",
         message: err.message,
       });
@@ -60,7 +60,7 @@ const getItemByUserId = (req, res) => {
   const authorized = req.auth && req.auth.id == userId;
   if (!authorized) {
     return res.status(403).json({
-      statusCode: 400,
+      statusCode: 403,
       error: "User is not authorized",
       message: "Please enter your own Id",
     });
@@ -69,7 +69,7 @@ const getItemByUserId = (req, res) => {
     .then((items) => {
       if (!items) {
         return res.json({
-          statusCode: 200,
+          statusCode: 404,
           message: "There is no Website and password saved!",
         });
       }
@@ -85,7 +85,7 @@ const getItemByUserId = (req, res) => {
     .catch((err) => {
       console.log("Error is ", err);
       res.json({
-        statusCode: 400,
+        statusCode: 500,
         error: "Error in fetching from the database",
         message: err.message,
       });

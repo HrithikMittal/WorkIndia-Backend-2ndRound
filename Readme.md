@@ -12,7 +12,15 @@ for the 2nd round of WorkIndia company
 
 # Description:
 
-I deploy the app on the heroku Platform and the MySQL is hosted on AWS server. If you want to change it please change it in environment file. 
+I deploy the app on the heroku Platform and the MySQL is hosted on AWS server. If you want to change it please change it in environment file. Also the link for heroku app: [https://workindia.herokuapp.com/](https://workindia.herokuapp.com/)
+
+``https://workindia.herokuapp.com/``
+
+for sake of convenience of usage and checking the API I host it on POSTMAN also you can run it directly from there:
+
+[https://documenter.getpostman.com/view/5665978/T1DjkfEM?version=latest](https://documenter.getpostman.com/view/5665978/T1DjkfEM?version=latest)
+
+For hashing the password of user I use [bcryptjs](https://www.npmjs.com/package/bcryptjs) and for the encryption and decryption is done by using [cryptr](https://www.npmjs.com/package/cryptr)
 
 # How to run:
 
@@ -40,20 +48,19 @@ Here I create env file with the name ``.env`` if you want to change the ``PORT``
 
 *(I also create the postman docs of using API so you can check that too: [https://documenter.getpostman.com/view/5665978/T1DjkfEM?version=latest](https://documenter.getpostman.com/view/5665978/T1DjkfEM?version=latest)*
 
-*base url: ``http://localhost:4040``*
+*base url: ``http://localhost:4040/app``*
 
 ##### NOTE: All the Request body will be JSON Object
 
 Please also take note of your ``id`` at the signup(User) So It will be use in later on APIs. Otherwise you can take thoose APIs from backend also means Database Schema.
 
-| Method | Route            | Requirements (Request <br />body and Header)                 | Response (response)           | Description/<br />Requirement |
-| ------ | :--------------- | ------------------------------------------------------------ | ----------------------------- | ----------------------------- |
-| POST   | /user/signup     | Email: string,<br />password: string<br />firstName:string<br />lastName:string | Details of user created       | To signup as User (<b>#1</b>) |
-| POST   | /user/login      | Email: string,<br />password: string                         | Token(this is a Bearer token) | To login as User(<b>#2</b>)   |
-| POST   | /signout/:userId | Authorized token [Login as User]<br />                       | message                       | To signout                    |
-|        |                  |                                                              |                               |                               |
-|        |                  |                                                              |                               |                               |
-|        |                  |                                                              |                               |                               |
+| Method | Route                         | Requirements (Request <br />body,Header,query Params)        | Response (response)           | Description/<br />Requirement                          |
+| ------ | :---------------------------- | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------ |
+| POST   | /user/signup                  | Email: string,<br />password: string<br />firstName:string<br />lastName:string | Details of user created       | To signup as User (<b>#1</b>)                          |
+| POST   | /user/login                   | Email: string,<br />password: string                         | Token(this is a Bearer token) | To login as User(<b>#2</b>)                            |
+| POST   | /user/signout?userId={userId} | Authorized token<br /> userId as query parameter             | message                       | To signout                                             |
+| GET    | /sites/list?userId={userId}   | Authorized token<br />userId as query parameter              | Website,username and password | To get all the saved Password from DB (<b>#3</b>)      |
+| POST   | /sites?userId={userId}        | Authorized token<br />userId as query parameter              | statuscode and message        | To store the username and password into DB (<b>#4</b>) |
 
 **In postman select Authorization type as Bearer token and enter your token getting after login*
 
@@ -67,4 +74,20 @@ Please also take note of your ``id`` at the signup(User) So It will be use in la
 
 1. How to provide Authorization Bearer token, for this you can take help from [this](https://learning.postman.com/docs/sending-requests/authorization/#bearer-token) blog.
 2. How to pass body as JSON Object, for this you can take help from [this](https://learning.postman.com/docs/sending-requests/requests/#raw-data) blog.
+
+
+
+
+
+## Status Code Used in the Application
+
+| S.No. | StatusCode | Meaning                            | Type                  |
+| ----- | ---------- | ---------------------------------- | --------------------- |
+| 1.    | 200        | The request has succeeded.         | Ok                    |
+| 2.    | 400        | Invalid Syntax                     | Bad Request           |
+| 3.    | 401        | Token is missing or wrong user Id. | Unauthorized          |
+| 4.    | 403        | Don't have access for this route.  | Forbidden             |
+| 5.    | 404        | Sever couldn't found the data.     | Not Found             |
+| 6.    | 409        | consistency will not maintain      | Conflict              |
+| 7.    | 500        | Error in server due to logic       | Internal Server Error |
 

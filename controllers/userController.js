@@ -8,7 +8,7 @@ const signup = (req, res) => {
   const newUser = new User(req.body);
   if (newUser.username == "" || newUser.password == "") {
     return res.json({
-      statusCode: 404,
+      statusCode: 400,
       error: "Please provide with email as well as password",
     });
   }
@@ -16,7 +16,7 @@ const signup = (req, res) => {
     .then((userRes) => {
       if (userRes) {
         return res.json({
-          statusCode: 404,
+          statusCode: 409,
           error: "User already exists with this email id",
         });
       }
@@ -24,7 +24,7 @@ const signup = (req, res) => {
         bcrypt.hash(newUser.password, salt, function (err, hash) {
           if (err) {
             return res.json({
-              statusCode: 400,
+              statusCode: 406,
               error: "Error in hashing the password",
             });
           }
@@ -38,7 +38,7 @@ const signup = (req, res) => {
             .catch((err) => {
               console.log("error is", err);
               res.json({
-                statusCode: 400,
+                statusCode: 500,
                 error: "Error in signup",
               });
             });
@@ -95,6 +95,7 @@ const login = (req, res) => {
           .catch((err) => {
             console.log("Error in finding the user", err);
             res.json({
+              statusCode: 500,
               error: err,
             });
           });
@@ -112,7 +113,7 @@ const signout = (req, res) => {
   var userId = req.query.userId;
   if (!userId) {
     return res.json({
-      statusCode: 400,
+      statusCode: 404,
       error: "User Id is not avaliable",
       message: "Please provide your valid userId",
     });
@@ -120,7 +121,7 @@ const signout = (req, res) => {
   const authorized = req.auth && req.auth.id == userId;
   if (!authorized) {
     return res.status(403).json({
-      statusCode: 400,
+      statusCode: 401,
       error: "User is not authorized",
     });
   }
@@ -139,27 +140,6 @@ const signout = (req, res) => {
             error: "Error in backend",
           });
         });
-    })
-    .catch((err) => {
-      return res.json({
-        statusCode: 400,
-        error: "Error in backend",
-      });
-    });
-};
-
-const userById = (req, res, next, id) => {
-  User.findOne({ where: { id: id } })
-    .then((user) => {
-      if (!user) {
-        return res.json({
-          statusCode: 404,
-          error: "User not found",
-        });
-      }
-      user.password = undefined;
-      req.userProfile = user;
-      next();
     })
     .catch((err) => {
       return res.json({
@@ -194,6 +174,5 @@ module.exports = {
   login,
   hasAuthorization,
   signout,
-  userById,
   requireSignIn,
 };

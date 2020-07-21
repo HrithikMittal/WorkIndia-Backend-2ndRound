@@ -12,5 +12,4 @@ router.get(
   itemController.getItemByUserId
 );
 
-router.param("userId", userController.userById);
 module.exports = router;
