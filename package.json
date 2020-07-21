@@ -1,0 +1,26 @@
+{
+  "name": "workindia-adhikansh",
+  "version": "1.0.0",
+  "description": "A API Project for workinda 2nd round of interview",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "author": "Adhikansh Mittal",
+  "license": "ISC",
+  "dependencies": {
+    "@types/sequelize": "^4.28.9",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cryptr": "^6.0.2",
+    "dotenv": "^8.2.0",
+    "env": "0.0.2",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.3"
+  }
+}
